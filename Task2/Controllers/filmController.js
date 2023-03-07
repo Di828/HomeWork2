@@ -96,7 +96,7 @@ class FilmController {
             return;
         }
 
-        res.status(200).send('Success'); 
+        res.json({result : 'Success'}); 
     }
 }
 

@@ -4,7 +4,7 @@ class GanreController{
     
     async getGanres(req, res) {   
         try {
-            const ganres = await db.query('SELECT name FROM ganre GROUP BY name');            
+            const ganres = await db.query('SELECT DISTINCT name FROM ganre');            
             res.json(ganres.rows);
         }
         
