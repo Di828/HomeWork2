@@ -3,7 +3,8 @@
 ---
  __GET__ : _/api/films_ <br>
  Response Class (Status 200) <br>
- Model Schema <br>
+ Model Schema 
+ <div style="margin-left: 10px;">
 [<div style="margin-left: 10px;"> {<div style="margin-left: 10px;">
 
         "id": 0,
@@ -11,7 +12,7 @@
         "year": 0,
         "ganres" : []
 </div>},
-</div>] <br>
+</div>] </div> 
 
  __GET__ : _/api/films/{id}_ <br>
  Response Class (Status 200) <br>
