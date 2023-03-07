@@ -1,9 +1,9 @@
 # API Documenration :
 
 ---
- __GET__ : _/api/films_
- Response Class (Status 200)
- Model Schema
+ __GET__ : _/api/films_ <br>
+ Response Class (Status 200) <br>
+ Model Schema <br>
 [<div style="margin-left: 10px;"> {<div style="margin-left: 10px;">
 
         "id": 0,
@@ -13,9 +13,9 @@
 </div>},
 </div>] <br>
 
- __GET__ : _/api/films/{id}_
- Response Class (Status 200)
- Model Schema
+ __GET__ : _/api/films/{id}_ <br>
+ Response Class (Status 200) <br>
+ Model Schema <br>
 <div style="margin-left: 10px;">
 { <div style="margin-left: 10px;">
 
@@ -27,17 +27,17 @@
 </div>
 
 ---
- __POST__ : _/api/films_
- Request Class
- Model Schema
+ __POST__ : _/api/films_ <Br>
+ Request Class <br>
+ Model Schema <br>
 { <div style="margin-left: 10px;">
 
         "name": "",
         "year": 0,
         "ganres" : []
 </div>}  <br>
- Response Class (Status 200)
- Model Schema
+ Response Class (Status 200) <br>
+ Model Schema <br>
 <div style="margin-left: 10px;">
 { <div style="margin-left: 10px;">
 
@@ -49,17 +49,17 @@
 </div>
 
 ---
- __PUT__ : _/api/films/{id}_
- Request Class
- Model Schema
+ __PUT__ : _/api/films/{id}_ <br>
+ Request Class <br>
+ Model Schema <br>
 { <div style="margin-left: 10px;">
 
         "name": "",
         "year": 0,
         "ganres" : []
 </div>}  <br>
- Response Class (Status 200)
- Model Schema
+ Response Class (Status 200) <br>
+ Model Schema <br>
 <div style="margin-left: 10px;">
 { <div style="margin-left: 10px;">
 
@@ -72,9 +72,9 @@
 
 ---
 
- __DELETE__ : _/api/films/{id}_
- Response Class (Status 200)
- Model Schema
+ __DELETE__ : _/api/films/{id}_ <br>
+ Response Class (Status 200) <br>
+ Model Schema <br>
 
 { <div style="margin-left: 10px;">
 
@@ -84,9 +84,9 @@
 
 ---
 
- __GET__ : _/api/ganres_
- Response Class (Status 200)
- Model Schema
+ __GET__ : _/api/ganres_ <br>
+ Response Class (Status 200) <br>
+ Model Schema <br>
 [<div style="margin-left: 10px;"> {<div style="margin-left: 10px;">
 
         "name" : ""
@@ -94,9 +94,9 @@
 </div>] <br>
 
 ---
- __GET__ : _/api/ganre?name={comedy}_
- Response Class (Status 200)
- Model Schema
+ __GET__ : _/api/ganre?name={comedy}_ <br>
+ Response Class (Status 200) <br>
+ Model Schema <br>
 [<div style="margin-left: 10px;"> {<div style="margin-left: 10px;">
 
         "id": 0,
