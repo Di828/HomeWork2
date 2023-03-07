@@ -5,13 +5,13 @@
  Response Class (Status 200) <br>
  Model Schema 
  <div style="margin-left: 10px;">
-[<div style="margin-left: 10px;"> {<div style="margin-left: 10px;">
+[<div style="margin-left: 20px;"> {
 
         "id": 0,
         "name": "",
         "year": 0,
         "ganres" : []
-</div>},
+},
 </div>] </div> 
 
  __GET__ : _/api/films/{id}_ <br>
