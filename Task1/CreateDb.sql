@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS public."Person"
 (
     "Id" bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
-    "Fullname" text COLLATE pg_catalog."default" NOT NULL,
+    "First_name" text COLLATE pg_catalog."default" NOT NULL,
+    "Last_name" text COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT "Person_pkey" PRIMARY KEY ("Id")
 )
 
