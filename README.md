@@ -14,6 +14,8 @@
 },
 </div>] </div> 
 
+---
+
  __GET__ : _/api/films/{id}_ <br>
  Response Class (Status 200) <br>
  Model Schema <br>
@@ -28,6 +30,7 @@
 </div>
 
 ---
+
  __POST__ : _/api/films_ <Br>
  Request Class <br>
  Model Schema <br>
@@ -50,6 +53,7 @@
 </div>
 
 ---
+
  __PUT__ : _/api/films/{id}_ <br>
  Request Class <br>
  Model Schema <br>
@@ -106,6 +110,7 @@
         "year": 0
 </div>},
 </div>] <br>
+
 ---
 
  __POST__ : _/api/genres_ <Br>
@@ -124,6 +129,7 @@
         "name": ""
 </div>} 
 </div>
+
 ---
 
  __PUT__ : _/api/genres/{id}_ <br>
