@@ -19,12 +19,12 @@ CREATE TABLE filmgenre
     genre_id bigint NOT NULL,
     CONSTRAINT filmgenre_pkey PRIMARY KEY (film_id, genre_id),
     CONSTRAINT filmgenre_film_id_fk FOREIGN KEY (film_id)
-        REFERENCES public.film (film_id) MATCH SIMPLE
+        REFERENCES film (film_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE
         NOT VALID,
     CONSTRAINT filmgenre_genre_id_fk FOREIGN KEY (genre_id)
-        REFERENCES public.genre (genre_id) MATCH SIMPLE
+        REFERENCES genre (genre_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE
         NOT VALID
