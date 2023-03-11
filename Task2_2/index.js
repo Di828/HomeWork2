@@ -1,5 +1,5 @@
-const filmController = require('./filmController');
-const ganreController = require('./ganreController');
+const filmController = require('./Controllers/filmController');
+const ganreController = require('./Controllers/ganreController');
 const http = require('http');
 
 const PORT = process.env.PORT || 5000;
@@ -20,12 +20,12 @@ server.on('request', async (req, res) => {
                     let id = +req.url.split('/')[3];                     
                     res.end(JSON.stringify(await filmController.getOneFilm(id)));
                     break;
-                case /^[/]api[/]ganres$/.test(url):
-                    res.end(JSON.stringify(await ganreController.getGanres()));
+                case /^[/]api[/]genres$/.test(url):
+                    res.end(JSON.stringify(await ganreController.getGenres()));
                     break;
-                case /^[/]api[/]ganre[?]name=[A-Za-z]/.test(url):
+                case /^[/]api[/]genres[?]name=[A-Za-z]/.test(url):
                     let genre = url.split('name=')[1];
-                    res.end(JSON.stringify(await ganreController.getFilmsWithGanre(genre)));
+                    res.end(JSON.stringify(await ganreController.getFilmsWithGenre(genre)));
                     break;
                 default :
                     res.writeHead(400);
@@ -34,49 +34,89 @@ server.on('request', async (req, res) => {
         }
 
         else if (req.method === 'DELETE'){        
-            if (/^[/]api[/]films[/]\d+$/.test(url)){            
-                let id = +req.url.split('/')[3];
-                res.end(JSON.stringify(await filmController.deleteFilm(id)))
-            } else {
+            let id = +req.url.split('/')[3];
+            switch (true) {
+
+            case /^[/]api[/]films[/]\d+$/.test(url):                
+                res.end(JSON.stringify(await filmController.deleteFilm(id)));
+                break;
+
+            case /^[/]api[/]genres[/]\d+$/.test(url):                
+                res.end(JSON.stringify(await ganreController.deleteGenre(id)));
+                break;
+
+            default :
                 res.writeHead(400);
                 res.end(JSON.stringify({'result' : 'Bad request'}));
             }
         }
 
-        else if (req.method === 'POST'){        
-            let filmData = {};
-            if (/^[/]api[/]films$/.test(url)){
-                let body = '';
-                req.on('data', chunk => {
-                body += chunk.toString();
-                });
+        else if (req.method === 'POST'){                                
+            let body = '';
+            switch (true) {         
 
-                req.on('end', async () => {            
-                filmData = await JSON.parse(body);            
-                res.end(JSON.stringify(await filmController.createFilm(filmData)));
-                })                 
-            } else {
-                res.writeHead(400);
-                res.end(JSON.stringify({'result' : 'Bad request'}));
+                case /^[/]api[/]films$/.test(url) :                    
+                    req.on('data', chunk => {
+                    body += chunk.toString();
+                    });
+
+                    req.on('end', async () => {            
+                    let filmData = await JSON.parse(body);            
+                    res.end(JSON.stringify(await filmController.createFilm(filmData)));
+                    });
+
+                    break;
+
+                case /^[/]api[/]genres$/.test(url) :                    
+                    req.on('data', chunk => {
+                    body += chunk.toString();
+                    });
+    
+                    req.on('end', async () => {            
+                    let genreData = await JSON.parse(body);            
+                    res.end(JSON.stringify(await ganreController.createGenre(genreData)));
+                    });
+    
+                    break;
+
+                default :
+                    res.writeHead(400);
+                    res.end(JSON.stringify({'result' : 'Bad request'}));            
             }
         }
 
-        else if (req.method === 'PUT'){        
-            let filmData = {};
-            if (/^[/]api[/]films[/]\d+$/.test(url)){
-                let body = '';
-                let id = +req.url.split('/')[3];
+        else if (req.method === 'PUT'){                    
+            let id = +req.url.split('/')[3];
+            let body = '';
+            switch (true){
+
+            case /^[/]api[/]films[/]\d+$/.test(url):                                
                 req.on('data', chunk => {
                 body += chunk.toString();
                 });
 
                 req.on('end', async () => {            
-                filmData = await JSON.parse(body);            
+                let filmData = await JSON.parse(body);            
                 res.end(JSON.stringify(await filmController.updateFilm(filmData, id)));
-                })                 
-            } else {
+                })  
+                
+                break;
+
+            case /^[/]api[/]genres[/]\d+$/.test(url):                                 
+                req.on('data', chunk => {
+                body += chunk.toString();
+                });
+    
+                req.on('end', async () => {            
+                let genreData = await JSON.parse(body);            
+                res.end(JSON.stringify(await ganreController.updateGenre(genreData, id)));
+                })  
+                    
+                break;
+
+            default :
                 res.writeHead(400);
-                res.end(JSON.stringify({'result' : 'Bad request'}));
+                res.end(JSON.stringify({'result' : 'Bad request'}));            
             }
         }
     }

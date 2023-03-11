@@ -1,15 +1,15 @@
-const db = require('../Task2/db');
+const db = require('../db');
 const ganreController = require('./ganreController');
 
 class FilmController {
     async createFilm (filmData) {
-        const {name, year, ganres} = filmData;            
+        const {title, yr, genres} = filmData;            
         try { 
-            const newFilm = await db.query('INSERT INTO film (name, year) VALUES ($1, $2) RETURNING *', [name, year]);
-            const {id}  = newFilm.rows[0];
+            const newFilm = await db.query('INSERT INTO film (title, yr) VALUES ($1, $2) RETURNING *', [title, yr]);
+            const {film_id}  = newFilm.rows[0];            
 
-            await ganreController.insertGanres(id, ganres);
-            newFilm.rows[0].ganres = await ganreController.getGanresForSingleFilm(id);
+            await ganreController.insertGenres(film_id, genres);
+            newFilm.rows[0].ganres = await ganreController.getGanresForSingleFilm(film_id);
 
             return newFilm.rows[0];
         }
@@ -24,8 +24,8 @@ class FilmController {
             const films = await db.query('SELECT * FROM film');
 
             for (let i = 0; i < films.rows.length; i++){
-                let {id} = films.rows[i];
-                films.rows[i].ganres = await ganreController.getGanresForSingleFilm(id);
+                let {film_id} = films.rows[i];
+                films.rows[i].genres = await ganreController.getGanresForSingleFilm(film_id);
             }
 
             return films.rows;
@@ -35,14 +35,14 @@ class FilmController {
         }
     }
 
-    async getOneFilm (id) {        
+    async getOneFilm (film_id) {        
         try {
-            const film = await db.query('SELECT * FROM film WHERE Id = $1', [id]);            
+            const film = await db.query('SELECT * FROM film WHERE film_id = $1', [film_id]);            
             if (film.rows[0] == undefined){                
                 throw new Error('404');
             }
         
-            film.rows[0].ganres = await ganreController.getGanresForSingleFilm(id);
+            film.rows[0].genres = await ganreController.getGanresForSingleFilm(film_id);
 
             return film.rows[0];
         }
@@ -55,17 +55,17 @@ class FilmController {
         }
     }
 
-    async updateFilm (filmData, id) {   
-        const {name, year, ganres} = filmData;
+    async updateFilm (filmData, film_id) {   
+        const {title, yr, genres} = filmData;
 
         try {
-            const updatedFilm = await db.query('UPDATE film SET name = $1, year = $2 WHERE id = $3 RETURNING *', [name, year, id]);
+            const updatedFilm = await db.query('UPDATE film SET title = $1, yr = $2 WHERE film_id = $3 RETURNING *', [title, yr, film_id]);
             if (updatedFilm.rows[0] == undefined){
                 throw new Error('404');
             }
 
-            await ganreController.updateGanres(id, ganres);
-            updatedFilm.rows[0].ganres = await ganreController.getGanresForSingleFilm(id);
+            await ganreController.updateFilmGenres(film_id, genres);
+            updatedFilm.rows[0].genres = await ganreController.getGanresForSingleFilm(film_id);
             return updatedFilm.rows[0];
         }
 
@@ -80,9 +80,8 @@ class FilmController {
 
     async deleteFilm (id) {        
 
-        try {
-            await ganreController.deleteFilmGanres(id);
-            let deleted = (await db.query('DELETE FROM film WHERE Id = $1 RETURNING *', [id])).rows[0];             
+        try {            
+            let deleted = (await db.query('DELETE FROM film WHERE film_id = $1 RETURNING *', [id])).rows[0];             
             if (deleted == undefined){
                 throw new Error('404');
             }
