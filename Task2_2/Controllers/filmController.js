@@ -13,7 +13,6 @@ class FilmController {
 
             return newFilm.rows[0];
         }
-
         catch {
             throw new Error('500');
         }
@@ -57,7 +56,6 @@ class FilmController {
 
     async updateFilm (filmData, film_id) {   
         const {title, yr, genres} = filmData;
-
         try {
             const updatedFilm = await db.query('UPDATE film SET title = $1, yr = $2 WHERE film_id = $3 RETURNING *', [title, yr, film_id]);
             if (updatedFilm.rows[0] == undefined){
@@ -68,7 +66,6 @@ class FilmController {
             updatedFilm.rows[0].genres = await ganreController.getGanresForSingleFilm(film_id);
             return updatedFilm.rows[0];
         }
-
         catch (e) {            
             if (e.message == '404'){
                 throw e;
@@ -79,14 +76,12 @@ class FilmController {
     }
 
     async deleteFilm (id) {        
-
         try {            
             let deleted = (await db.query('DELETE FROM film WHERE film_id = $1 RETURNING *', [id])).rows[0];             
             if (deleted == undefined){
                 throw new Error('404');
             }
         }      
-
         catch (e) {            
             if (e.message == '404'){
                 throw e;

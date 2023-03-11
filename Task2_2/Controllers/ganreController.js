@@ -9,7 +9,6 @@ class GanreController{
 
             return newGenre.rows[0];
         }
-
         catch {
             throw new Error('500');
         }
@@ -26,7 +25,6 @@ class GanreController{
             
             return updatedGenre.rows[0];
         }
-
         catch (e) {            
             if (e.message == '404'){
                 throw e;
@@ -58,8 +56,7 @@ class GanreController{
         try {
             const ganres = await db.query('SELECT * FROM genre'); 
             return ganres.rows;
-        }
-        
+        }        
         catch {
             throw new Error('500');
         }
@@ -76,7 +73,6 @@ class GanreController{
 
             return films.rows;
         }
-
         catch (e) {            
             if (e.message == '404'){
                 throw e;
@@ -87,9 +83,9 @@ class GanreController{
     }
 
     async getGanresForSingleFilm(film_id) {           
-        let ganres = (await db.query('SELECT name FROM genre JOIN filmgenre USING(genre_id) WHERE film_id = $1', [film_id])).rows;
-        
+        let ganres = (await db.query('SELECT name FROM genre JOIN filmgenre USING(genre_id) WHERE film_id = $1', [film_id])).rows;        
         let ganresNames = [];
+        
         for (let i = 0; i < ganres.length; i++){
             ganresNames.push(ganres[i].name);
         }
